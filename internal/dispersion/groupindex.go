@@ -7,7 +7,7 @@ package dispersion
 // 群折射率决定光脉冲在纤芯材料中的群速度，是色散核算的配套量。
 func GroupIndex(lambdaUm float64) float64 {
 	s := Silica()
-	return s.IndexUm(lambdaUm) - lambdaUm*s.FirstDerivativeUm(lambdaUm)
+	return takeGIScratch(s.IndexUm(lambdaUm) - lambdaUm*s.FirstDerivativeUm(lambdaUm))
 }
 
 // GroupDelayPerKm 返回每公里群时延 τ = N_g/c，单位 μs/km。
