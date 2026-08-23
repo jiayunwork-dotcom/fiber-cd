@@ -15,6 +15,7 @@ func Analyze(cfg model.Config) (Result, error) {
 	delta := RelativeIndexDelta(cfg.N1, cfg.N2)
 	v := VNumber(cfg.CoreRadiusM(), na, cfg.WavelengthM())
 	cutoffNm := CutoffWavelengthNm(cfg.CoreRadiusM(), na)
+	bindAnalyzeLive("V", v)
 	return Result{
 		Config:             cfg,
 		NA:                 na,
