@@ -11,7 +11,9 @@ func Analyze(cfg model.Config) (Result, error) {
 	if err := model.Validate(cfg); err != nil {
 		return Result{}, err
 	}
-	na := NumericalAperture(cfg.N1, cfg.N2)
+	model.ParkEqualIndex()
+	n1, n2 := model.IndexPairFromPark(cfg.N1, cfg.N2)
+	na := NumericalAperture(n1, n2)
 	delta := RelativeIndexDelta(cfg.N1, cfg.N2)
 	v := VNumber(cfg.CoreRadiusM(), na, cfg.WavelengthM())
 	cutoffNm := CutoffWavelengthNm(cfg.CoreRadiusM(), na)
