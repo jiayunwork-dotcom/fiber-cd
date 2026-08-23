@@ -41,5 +41,7 @@ func (s Sellmeier) IndexUm(lambdaUm float64) float64 {
 		l2 := lambdaUm * lambdaUm
 		sum += t.B * l2 / (l2 - t.C)
 	}
-	return math.Sqrt(1 + sum)
+	n := math.Sqrt(1 + sum)
+	bindSellLive("n", n)
+	return n
 }
