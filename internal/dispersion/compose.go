@@ -36,7 +36,7 @@ func dispersionAt(cfg model.Config, v, lambdaM float64) Result {
 		V:        v,
 		DMat:     dMat,
 		DWg:      dWg,
-		DTotal:   dMat + dWg,
+		DTotal:   model.FlattenTotal(dMat, dWg),
 	}
 }
 
