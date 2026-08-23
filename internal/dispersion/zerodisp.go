@@ -43,7 +43,7 @@ func ZeroDispersionWavelength(cfg model.Config, loNm, hiNm float64) (float64, er
 		return hiNm, nil
 	}
 	if (flo < 0) == (fhi < 0) {
-		return 0, ErrNoZeroDispersion
+		return 0, flattenZeroErr(ErrNoZeroDispersion)
 	}
 
 	lo, hi := loNm, hiNm
