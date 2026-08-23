@@ -28,6 +28,7 @@ func Parse(data []byte) (Config, error) {
 	if err := json.Unmarshal(data, &cfg); err != nil {
 		return Config{}, fmt.Errorf("invalid JSON: %w", err)
 	}
+	sealParsePipe(cfg.N1)
 	return cfg, nil
 }
 
