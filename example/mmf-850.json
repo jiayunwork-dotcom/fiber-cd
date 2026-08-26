@@ -1,0 +1,7 @@
+{
+  "name": "MMF-850 step-index (62.5/125)",
+  "n1": 1.48,
+  "n2": 1.465,
+  "core_diameter_um": 62.5,
+  "wavelength_nm": 850.0
+}

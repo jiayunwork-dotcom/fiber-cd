@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>阶跃光纤 NA / 色散核算</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>阶跃光纤 NA 与色散</h1>
+  <p>输入 n1、n2、芯径和波长，由后端给出 NA、V、单模判定与 D_tot。</p>
+</header>
+<main>
+  <section class="panel">
+    <h2>光纤参数</h2>
+    <div class="form-grid">
+      <label>n1<input id="n1" type="number" step="any" value="1.4656"></label>
+      <label>n2<input id="n2" type="number" step="any" value="1.4619"></label>
+      <label>芯径（μm）<input id="core" type="number" step="any" value="9"></label>
+      <label>波长（nm）<input id="wl" type="number" step="any" value="1310"></label>
+    </div>
+    <div class="actions">
+      <button id="btn-example" type="button">加载示例</button>
+      <button id="btn-mode" type="button">核算 /api/mode</button>
+    </div>
+    <p id="hint" class="hint"></p>
+  </section>
+  <section class="panel" id="err-panel" hidden><h2>后端错误</h2><pre id="err-text"></pre></section>
+  <section class="panel" id="out-panel" hidden><h2>结果</h2><table id="out-table"></table></section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
