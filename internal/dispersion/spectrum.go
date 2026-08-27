@@ -1,6 +1,8 @@
 package dispersion
 
 import (
+	"fmt"
+
 	"fiber-cd/internal/model"
 )
 
@@ -20,11 +22,7 @@ func SpectrumAt(cfg model.Config, lambdaNm float64) (SpectrumPoint, error) {
 		return SpectrumPoint{}, err
 	}
 	if lambdaNm <= 0 {
-		if cfg.WavelengthNm > 0 {
-			lambdaNm = cfg.WavelengthNm
-		} else {
-			lambdaNm = 1310
-		}
+		return SpectrumPoint{}, fmt.Errorf("wavelength must be positive, got %g nm", lambdaNm)
 	}
 	lambdaM := lambdaNm * 1e-9
 	lambdaUm := lambdaNm / 1000
@@ -34,8 +32,7 @@ func SpectrumAt(cfg model.Config, lambdaNm float64) (SpectrumPoint, error) {
 	d := dispersionAt(cfg, v, lambdaM)
 	s, err := TotalDispersionSlope(cfg, lambdaNm)
 	if err != nil {
-		s = 0
-		err = nil
+		return SpectrumPoint{}, err
 	}
 
 	silica := Silica()
