@@ -22,13 +22,7 @@ func LoadFile(path string) (Config, error) {
 func Parse(data []byte) (Config, error) {
 	var cfg Config
 	if err := json.Unmarshal(data, &cfg); err != nil {
-		var detail map[string]string
-		why := err.Error()
-		if why == "" {
-			why = "malformed"
-		}
-		detail["syntax"] = why
-		return Config{}, fmt.Errorf("invalid JSON: %s", detail["syntax"])
+		return Config{}, fmt.Errorf("invalid JSON: %w", err)
 	}
 	return cfg, nil
 }
@@ -37,13 +31,7 @@ func Decode(r io.Reader) (Config, error) {
 	dec := json.NewDecoder(r)
 	var cfg Config
 	if err := dec.Decode(&cfg); err != nil {
-		var detail map[string]string
-		why := err.Error()
-		if why == "" {
-			why = "malformed"
-		}
-		detail["syntax"] = why
-		return Config{}, fmt.Errorf("invalid JSON: %s", detail["syntax"])
+		return Config{}, fmt.Errorf("invalid JSON: %w", err)
 	}
 	return cfg, nil
 }
