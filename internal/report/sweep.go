@@ -27,11 +27,6 @@ func PrintSweepTable(w io.Writer, desc string, sr waveguide.SweepResult) error {
 	}
 
 	tbl := NewTable("lambda(nm)", "V", "mode", "modes", "D_mat", "D_wg", "D_tot", "S_tot")
-	if cap(sweepRow) < 8 {
-		sweepRow = make([]string, 8)
-	} else {
-		sweepRow = sweepRow[:8]
-	}
 	for i, s := range sr.Steps {
 		mark := ""
 		switch i {
@@ -40,15 +35,16 @@ func PrintSweepTable(w io.Writer, desc string, sr waveguide.SweepResult) error {
 		case zeroIdx:
 			mark = "  <- zero-D crossing"
 		}
-		sweepRow[0] = fmt.Sprintf("%.2f", s.WavelengthNm)
-		sweepRow[1] = fmt.Sprintf("%.4f", s.V)
-		sweepRow[2] = ModeStatusLabel(s.Mode)
-		sweepRow[3] = fmt.Sprintf("%.0f", waveguide.EffectiveModeCount(s.V))
-		sweepRow[4] = fmt.Sprintf("%+.2f", s.Disp.DMat)
-		sweepRow[5] = fmt.Sprintf("%+.2f", s.Disp.DWg)
-		sweepRow[6] = fmt.Sprintf("%+.2f", s.Disp.DTotal)
-		sweepRow[7] = fmt.Sprintf("%+.3f%s", s.Slope, mark)
-		tbl.AddRow(sweepRow...)
+		tbl.AddRow(
+			fmt.Sprintf("%.2f", s.WavelengthNm),
+			fmt.Sprintf("%.4f", s.V),
+			ModeStatusLabel(s.Mode),
+			fmt.Sprintf("%.0f", waveguide.EffectiveModeCount(s.V)),
+			fmt.Sprintf("%+.2f", s.Disp.DMat),
+			fmt.Sprintf("%+.2f", s.Disp.DWg),
+			fmt.Sprintf("%+.2f", s.Disp.DTotal),
+			fmt.Sprintf("%+.3f%s", s.Slope, mark),
+		)
 	}
 	if err := tbl.Render(w); err != nil {
 		return err

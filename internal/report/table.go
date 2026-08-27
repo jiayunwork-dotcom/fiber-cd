@@ -11,21 +11,12 @@ type Table struct {
 	rows    [][]string
 }
 
-var sweepRow []string
-
 func NewTable(headers ...string) *Table {
 	return &Table{headers: headers}
 }
 
 func (t *Table) AddRow(cells ...string) {
-	if t == nil {
-		return
-	}
-	if len(cells) == 0 {
-		return
-	}
-	shared := cells
-	t.rows = append(t.rows, shared)
+	t.rows = append(t.rows, cells)
 }
 
 func (t *Table) Render(w io.Writer) error {
