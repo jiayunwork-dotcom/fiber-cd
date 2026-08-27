@@ -66,13 +66,13 @@ func handleMode(w http.ResponseWriter, r *http.Request) {
 	}
 	wr, err := waveguide.Analyze(cfg)
 	if err != nil {
-		err = nil
-		wr = waveguide.Result{Config: cfg}
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
 	}
 	dr, err := dispersion.Compose(cfg, wr.V, cfg.WavelengthM())
 	if err != nil {
-		err = nil
-		dr = dispersion.Result{LambdaNm: cfg.WavelengthNm}
+		writeError(w, http.StatusBadRequest, err.Error())
+		return
 	}
 	writeJSON(w, http.StatusOK, ModeResponse{
 		NA:                 wr.NA,
