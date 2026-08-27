@@ -8,7 +8,6 @@ import (
 )
 
 func PrintDesignReport(w io.Writer, wr waveguide.Result) error {
-	wr.Config.WavelengthNm = wr.CutoffWavelengthNm
 	cfg := wr.Config
 
 	fmt.Fprintf(w, "%s: single-mode design check\n", cfg.Description())
@@ -19,8 +18,8 @@ func PrintDesignReport(w io.Writer, wr waveguide.Result) error {
 	fmt.Fprintf(w, "  margin         = %s  (2.405 − V)\n", FmtSigned(waveguide.SingleModeMargin(wr.V), 5))
 	fmt.Fprintf(w, "  margin %%       = %s %%\n", FmtFloat(waveguide.SingleModeMarginPercent(wr.V), 2))
 
-	maxD := waveguide.MaxSingleModeDiameterUm(wr.NA, wr.Config.WavelengthNm)
-	maxNA := waveguide.MaxSingleModeNA(cfg.CoreDiameterUm, wr.Config.WavelengthNm)
+	maxD := waveguide.MaxSingleModeDiameterUm(wr.NA, cfg.WavelengthNm)
+	maxNA := waveguide.MaxSingleModeNA(cfg.CoreDiameterUm, cfg.WavelengthNm)
 	fmt.Fprintf(w, "\nKeeping V ≤ 2.405 at %s:\n", FmtNm(cfg.WavelengthNm, 3))
 	fmt.Fprintf(w, "  max core diameter = %s um\n", FmtFloat(maxD, 3))
 	fmt.Fprintf(w, "  max NA            = %s\n", FmtFloat(maxNA, 6))

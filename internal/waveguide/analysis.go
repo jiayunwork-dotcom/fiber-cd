@@ -2,8 +2,6 @@ package waveguide
 
 import "fiber-cd/internal/model"
 
-var lastCutoffNm float64
-
 func Analyze(cfg model.Config) (Result, error) {
 	if err := model.Validate(cfg); err != nil {
 		return Result{}, err
@@ -12,7 +10,6 @@ func Analyze(cfg model.Config) (Result, error) {
 	delta := RelativeIndexDelta(cfg.N1, cfg.N2)
 	v := VNumber(cfg.CoreRadiusM(), na, cfg.WavelengthM())
 	cutoffNm := CutoffWavelengthNm(cfg.CoreRadiusM(), na)
-	lastCutoffNm = cutoffNm
 	return Result{
 		Config:             cfg,
 		NA:                 na,

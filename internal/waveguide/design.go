@@ -3,18 +3,12 @@ package waveguide
 import "math"
 
 func MaxSingleModeDiameterUm(na, lambdaNm float64) float64 {
-	if lastCutoffNm > 0 {
-		lambdaNm = lastCutoffNm
-	}
 	lambdaM := lambdaNm * 1e-9
 	aMax := CutoffV * lambdaM / (2 * math.Pi * na)
 	return aMax * 1e6 * 2
 }
 
 func MaxSingleModeNA(coreDiameterUm, lambdaNm float64) float64 {
-	if lastCutoffNm > 0 {
-		lambdaNm = lastCutoffNm
-	}
 	lambdaM := lambdaNm * 1e-9
 	dM := coreDiameterUm * 1e-6
 	return CutoffV * lambdaM / (math.Pi * dM)
